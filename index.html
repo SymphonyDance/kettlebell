@@ -36,7 +36,7 @@
     min-height:100vh;
     -webkit-font-smoothing:antialiased;
   }
-  .wrap{max-width:760px;margin:0 auto;padding:28px 20px 80px;}
+  .wrap{max-width:760px;margin:0 auto;padding:28px 20px 120px;}
 
   /* HEADER */
   header{
@@ -124,6 +124,38 @@
 
   /* START BUTTON */
   .cta-row{ margin:24px 0 8px; }
+
+  /* MUSCLE BADGE (overview card) */
+  .plate-muscle{
+    display:flex; align-items:center; gap:6px; margin:4px 0 0;
+    font-size:12px; color:var(--chalk-dim); font-family:'JetBrains Mono',monospace;
+  }
+  .muscle-dot{ width:7px; height:7px; border-radius:50%; background:var(--brass-bright); flex:none; }
+
+  /* MUSCLE DIAGRAM (stage view) */
+  .muscle-box{
+    display:flex; align-items:center; gap:16px; text-align:left;
+    background:var(--iron-2); border:1px solid var(--plate-edge); border-radius:var(--radius);
+    padding:12px 16px; margin:0 0 20px;
+  }
+  .muscle-box svg{ width:44px; height:80px; flex:none; }
+  .sil-base{ fill:#46464c; }
+  .sil-zone{ fill:var(--brass-bright); opacity:.9; }
+  .mb-label{
+    font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:.14em;
+    text-transform:uppercase; color:var(--chalk-dim); margin:0 0 3px;
+  }
+  .mb-name{ font-family:'Oswald',sans-serif; font-size:17px; text-transform:uppercase; color:var(--chalk); margin:0; }
+
+  /* STICKY START/RESUME BAR */
+  .sticky-cta{
+    position:fixed; left:0; right:0; bottom:0; z-index:50;
+    padding:16px 20px calc(16px + env(safe-area-inset-bottom));
+    background:linear-gradient(to top, var(--iron) 55%, transparent);
+    transition:transform .25s ease, opacity .25s ease;
+  }
+  .sticky-cta.hidden{ transform:translateY(120%); opacity:0; pointer-events:none; }
+  .sticky-cta-inner{ max-width:760px; margin:0 auto; }
   button.cta{
     width:100%; padding:16px; font-family:'Oswald',sans-serif; font-size:16px;
     text-transform:uppercase; letter-spacing:.06em; font-weight:600;
@@ -307,9 +339,6 @@
     <p class="section-label">The Order</p>
     <div id="plateList"></div>
 
-    <div class="cta-row">
-      <button class="cta" id="startBtn">Start Session</button>
-    </div>
   </div>
 
   <div class="session" id="session">
@@ -325,6 +354,8 @@
       <p class="stage-scheme" id="stageScheme">4 × 15</p>
 
       <div class="illus-frame" id="illusFrame"></div>
+
+      <div class="muscle-box" id="muscleBox"></div>
 
       <ul class="cue-list" id="cueList"></ul>
 
@@ -358,11 +389,18 @@
   <footer>FORGED FOR ONE SESSION A WEEK — CARDIO &amp; PUSH VOLUME HANDLED SEPARATELY</footer>
 </div>
 
+<div class="sticky-cta" id="stickyCta">
+  <div class="sticky-cta-inner">
+    <button class="cta" id="startBtn">Start Session</button>
+  </div>
+</div>
+
 <script>
 const EXERCISES = [
   {
     name: "Kettlebell Swing",
     sets: 4, reps: "15 reps",
+    muscle: "Glutes & Hamstrings", zones: ['glutes','hamstrings'],
     cues: [
       "Hinge at the hips, not a squat — like closing a car door with your butt.",
       "Snap the hips forward hard; the arms just steer.",
@@ -374,6 +412,7 @@ const EXERCISES = [
   {
     name: "Goblet Squat",
     sets: 3, reps: "12 reps",
+    muscle: "Quads", zones: ['quads'],
     cues: [
       "Hold the bell at your chest by the horns.",
       "Elbows slide inside the knees at the bottom.",
@@ -385,6 +424,7 @@ const EXERCISES = [
   {
     name: "Single-Arm Row",
     sets: 3, reps: "10 reps / side",
+    muscle: "Back & Lats", zones: ['back'],
     cues: [
       "Flat back, hinge forward, free hand on a bench or knee.",
       "Pull elbow straight back, squeeze the shoulder blade.",
@@ -396,6 +436,7 @@ const EXERCISES = [
   {
     name: "Overhead Press",
     sets: 3, reps: "8 reps / side",
+    muscle: "Shoulders", zones: ['shoulders'],
     cues: [
       "Start at the shoulder, elbow tucked in front.",
       "Press straight up, ribs down, don't lean back.",
@@ -407,6 +448,7 @@ const EXERCISES = [
   {
     name: "Turkish Get-Up",
     sets: 3, reps: "2–3 reps / side",
+    muscle: "Core (full-body)", zones: ['abs','shoulders'],
     cues: [
       "Slow and technical — this is the whole point, not a race.",
       "Eyes on the bell the entire rep.",
@@ -418,6 +460,7 @@ const EXERCISES = [
   {
     name: "Windmill / Core Finisher",
     sets: 2, reps: "10 reps / side",
+    muscle: "Obliques", zones: ['obliques'],
     cues: [
       "Bell locked overhead, hinge sideways toward the opposite foot.",
       "Keep the arm vertical the whole way down.",
@@ -524,7 +567,30 @@ function windmillSVG(){
   </g>`;
 }
 
-// ---- STATE ----
+// ---- MUSCLE DIAGRAM ----
+const MUSCLE_ZONES = {
+  shoulders: `<ellipse class="sil-zone" cx="12" cy="20" rx="6" ry="7"/><ellipse class="sil-zone" cx="48" cy="20" rx="6" ry="7"/>`,
+  back:      `<ellipse class="sil-zone" cx="30" cy="30" rx="10" ry="14"/>`,
+  abs:       `<ellipse class="sil-zone" cx="30" cy="44" rx="7" ry="11"/>`,
+  obliques:  `<ellipse class="sil-zone" cx="22" cy="42" rx="4.5" ry="10"/><ellipse class="sil-zone" cx="38" cy="42" rx="4.5" ry="10"/>`,
+  glutes:    `<ellipse class="sil-zone" cx="30" cy="58" rx="11" ry="7"/>`,
+  hamstrings:`<ellipse class="sil-zone" cx="23" cy="72" rx="4.5" ry="12"/><ellipse class="sil-zone" cx="37" cy="72" rx="4.5" ry="12"/>`,
+  quads:     `<ellipse class="sil-zone" cx="23" cy="70" rx="4.5" ry="13"/><ellipse class="sil-zone" cx="37" cy="70" rx="4.5" ry="13"/>`
+};
+function bodyDiagram(zones){
+  const highlights = zones.map(z => MUSCLE_ZONES[z] || '').join('');
+  return `<svg viewBox="0 0 60 110">
+    <circle class="sil-base" cx="30" cy="8" r="7"/>
+    <rect class="sil-base" x="21" y="16" width="18" height="38" rx="7"/>
+    <rect class="sil-base" x="9" y="18" width="8" height="30" rx="4"/>
+    <rect class="sil-base" x="43" y="18" width="8" height="30" rx="4"/>
+    <rect class="sil-base" x="20" y="53" width="8" height="44" rx="4"/>
+    <rect class="sil-base" x="32" y="53" width="8" height="44" rx="4"/>
+    ${highlights}
+  </svg>`;
+}
+
+
 let currentEx = 0;
 let currentSet = 0; // sets completed for current exercise
 let doneEx = new Array(EXERCISES.length).fill(false);
@@ -560,6 +626,7 @@ function renderOverview(){
         <p class="plate-num">LIFT ${String(i+1).padStart(2,'0')}</p>
         <p class="plate-name">${ex.name}</p>
         <p class="plate-scheme">${ex.sets} × ${ex.reps}</p>
+        <p class="plate-muscle"><span class="muscle-dot"></span>${ex.muscle}</p>
       </div>
       <div class="plate-check">${doneEx[i] ? '✓' : ''}</div>
     `;
@@ -599,6 +666,13 @@ function renderStage(){
   document.getElementById('stageName').textContent = ex.name;
   document.getElementById('stageScheme').textContent = `${ex.sets} × ${ex.reps}`;
   document.getElementById('illusFrame').innerHTML = `<svg viewBox="0 0 130 140">${ex.svg}</svg>`;
+  document.getElementById('muscleBox').innerHTML = `
+    ${bodyDiagram(ex.zones)}
+    <div>
+      <p class="mb-label">Primary Muscles</p>
+      <p class="mb-name">${ex.muscle}</p>
+    </div>
+  `;
   document.getElementById('cueList').innerHTML = ex.cues.map(c=>`<li>${c}</li>`).join('');
 
   const tracker = document.getElementById('setTracker');
@@ -671,12 +745,14 @@ function finishSession(){
 function goToSession(){
   overview.classList.add('off');
   session.classList.add('on');
+  document.getElementById('stickyCta').classList.add('hidden');
   startSessionClock();
   renderStage();
 }
 function goToOverview(){
   overview.classList.remove('off');
   session.classList.remove('on');
+  document.getElementById('stickyCta').classList.remove('hidden');
   renderOverview();
 }
 
