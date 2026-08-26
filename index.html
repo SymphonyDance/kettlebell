@@ -215,6 +215,22 @@ h1{margin:0; font-size:34px; line-height:1; letter-spacing:-.01em; text-transfor
 .sync-line.ok .sync-dot{background:var(--accent);}
 .sync-line.wait .sync-dot{background:var(--n500); animation:syncPulse 1.2s ease-in-out infinite;}
 @keyframes syncPulse{0%,100%{opacity:1} 50%{opacity:.25}}
+.code-box{margin:22px 0 0; padding:18px 18px 16px; border:2px solid var(--n300);}
+.code-box .mlabel{margin-bottom:8px;}
+.code-val{
+  margin:0; font-size:26px; font-weight:800; letter-spacing:.14em;
+  font-variant-numeric:tabular-nums; word-break:break-all;
+}
+.code-copy{margin:10px 0 0; font-size:12.5px; line-height:1.5; color:var(--n700); text-wrap:pretty;}
+.code-actions{display:flex; gap:18px; margin:14px 0 0;}
+.code-form[hidden]{display:none;}
+.code-form{display:grid; grid-template-columns:minmax(0,1fr) auto; gap:10px; margin:14px 0 0;}
+.code-input{
+  border:2px solid var(--n300); background:var(--bg); color:var(--text);
+  padding:12px 14px; font-family:inherit; font-size:16px; font-weight:700;
+  letter-spacing:.12em; text-transform:uppercase; min-width:0;
+}
+.code-input:focus{border-color:var(--text); outline:none;}
 
 .cue{display:grid; grid-template-columns:32px 1fr; gap:12px; padding:14px 0; border-bottom:2px solid var(--divider);}
 .cue-n{margin:0; font-size:13px; font-weight:800; color:var(--accent);}
@@ -388,7 +404,28 @@ const K_SESSION = 'foundry.session.v2', K_WEIGHTS = 'foundry.weights.v2', K_HIST
 const readJSON = (k, fb) => { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : fb; } catch(e){ return fb; } };
 const writeJSON = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch(e){} };
 
-const K_WEIGHTS3 = 'foundry.weights.v3', K_A2HS = 'foundry.a2hs.dismissed';
+const K_WEIGHTS3 = 'foundry.weights.v3', K_A2HS = 'foundry.a2hs.dismissed', K_CODE = 'foundry.code';
+const CODE_CHARS = 'ACDEFGHJKLMNPQRTUVWXY34679';
+function makeCode(){
+  let s = '';
+  const r = (window.crypto && crypto.getRandomValues) ? crypto.getRandomValues(new Uint8Array(9)) : null;
+  for(let i=0;i<9;i++) s += CODE_CHARS[(r ? r[i] : Math.floor(Math.random()*256)) % CODE_CHARS.length];
+  return s.slice(0,3)+'-'+s.slice(3,6)+'-'+s.slice(6);
+}
+const cleanCode = v => String(v||'').toUpperCase().replace(/[^A-Z0-9]/g,'').slice(0,9);
+const fmtCode = v => { const c = cleanCode(v); return c.length===9 ? c.slice(0,3)+'-'+c.slice(3,6)+'-'+c.slice(6) : c; };
+function myCode(){
+  let c = localStorage.getItem(K_CODE);
+  if(!c || cleanCode(c).length !== 9){ c = makeCode(); localStorage.setItem(K_CODE, c); }
+  return c;
+}
+function adoptCode(v){
+  const c = cleanCode(v);
+  if(c.length !== 9) return false;
+  localStorage.setItem(K_CODE, fmtCode(c));
+  location.reload();
+  return true;
+}
 const pair = (v, fb) => Array.isArray(v) ? [v[0]||fb, v[1]||v[0]||fb] : (typeof v === 'number' ? [v,v] : [fb,fb]);
 function normWeights(raw){ return EX.map((e,i)=> pair(raw && raw[i], e.kg)); }
 let weights = normWeights(readJSON(K_WEIGHTS3, null) || readJSON(K_WEIGHTS, null));
@@ -460,6 +497,7 @@ function mergeHistory(a, b){
 const localSnapshot = () => ({ history: history, weights: weights, updatedAt: Date.now() });
 function pushSync(){ if(sync.pushFn){ try{ sync.pushFn(localSnapshot()); }catch(e){} } }
 window.KB = {
+  code: myCode,
   onPush(fn){ sync.pushFn = fn; },
   status(st){ sync.state = st; if(st==='ok') sync.at = Date.now(); syncLine(); },
   snapshot: localSnapshot,
@@ -863,8 +901,34 @@ function renderHistory(){
     + '<div class="spark">'+bars+'</div>'
     + '<p class="section-label">The record</p>' + rows
     + '<p class="footnote">Tonnage counts each logged set at the bell you used — the honest measure of whether the week actually got heavier.</p>'
+    + '<div class="code-box"><p class="mlabel">Your log code</p>'
+    + '<p class="code-val" id="codeVal">'+myCode()+'</p>'
+    + '<p class="code-copy">Every session is backed up under this code. Write it down — enter it on another device, or after clearing Safari, to get this history back.</p>'
+    + '<div class="code-actions"><button class="text-btn" id="codeCopyBtn">Copy code</button>'
+    + '<button class="text-btn" id="codeUseBtn">Use another code</button></div>'
+    + '<div class="code-form" id="codeForm" hidden>'
+    + '<input class="code-input" id="codeInput" placeholder="ABC-DEF-GHJ" autocapitalize="characters" autocomplete="off" spellcheck="false">'
+    + '<button class="btn btn-outline btn-sm" id="codeGoBtn">Load</button></div></div>'
     + '<p class="sync-line" id="syncLine"></p>';
   document.getElementById('histBackBtn').addEventListener('click', ()=>{ state.view='overview'; render('back'); });
+  document.getElementById('codeCopyBtn').addEventListener('click', e => {
+    const t = e.currentTarget;
+    const done = () => { t.textContent = 'Copied ✓'; setTimeout(()=>{ t.textContent = 'Copy code'; }, 1600); };
+    if(navigator.clipboard) navigator.clipboard.writeText(myCode()).then(done).catch(()=>{});
+    else done();
+  });
+  document.getElementById('codeUseBtn').addEventListener('click', ()=>{
+    const box = document.getElementById('codeForm');
+    box.hidden = !box.hidden;
+    if(!box.hidden) document.getElementById('codeInput').focus();
+  });
+  const goCode = ()=>{
+    const v = document.getElementById('codeInput').value;
+    if(cleanCode(v).length !== 9){ document.getElementById('codeInput').style.borderColor = 'var(--accent)'; return; }
+    if(confirm('Load the log for '+fmtCode(v)+'? This device will switch to that history.')) adoptCode(v);
+  };
+  document.getElementById('codeGoBtn').addEventListener('click', goCode);
+  document.getElementById('codeInput').addEventListener('keydown', e => { if(e.key === 'Enter') goCode(); });
   syncLine();
   setCta(null);
 }

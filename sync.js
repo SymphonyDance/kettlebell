@@ -1,6 +1,8 @@
 /* Optional cross-device sync.
    Runs only if firebase-config.js is filled in; otherwise the app stays local-only.
-   One document per user: users/{uid} = { history: [...], weights: [...], updatedAt }.
+   One document per log code: logs/{code} = { history: [...], weights: [...], updatedAt }.
+   Anonymous auth only gates access to Firestore; the code is what identifies the log,
+   so it survives Safari clearing the auth token and can be typed into another device.
    Firestore's own offline cache queues writes made with no signal. */
 
 const V = '10.12.2';
@@ -36,7 +38,9 @@ async function boot() {
     signInAnonymously(auth).catch(reject);
   });
 
-  const ref = doc(db, 'users', user.uid);
+  // Keyed by a user-visible log code, not the anonymous uid — the uid is
+  // disposable (Safari can drop it), the code is written down and recoverable.
+  const ref = doc(db, 'logs', KB.code().replace(/-/g, ''));
 
   // Remote → local. Also fires from cache first, so this works offline.
   onSnapshot(ref,
