@@ -41,6 +41,20 @@ header{display:flex; justify-content:space-between; align-items:baseline; paddin
 h1{margin:0; font-size:34px; line-height:1; letter-spacing:-.01em; text-transform:uppercase; font-weight:800;}
 .datestamp{margin:0; font-size:12px; letter-spacing:.1em; text-transform:uppercase; color:var(--n600); font-weight:600;}
 
+/* PROGRAM PICKER */
+.prog-pick{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); border-bottom:2px solid var(--divider);}
+.prog-opt{
+  border:none; background:none; cursor:pointer; text-align:left;
+  padding:16px 0; color:var(--n600); border-bottom:4px solid transparent;
+  transition:color .15s ease, border-color .15s ease;
+}
+.prog-opt + .prog-opt{padding-left:20px; border-left:2px solid var(--divider);}
+.prog-opt-name{margin:0 0 3px; font-size:19px; font-weight:800; text-transform:uppercase; letter-spacing:-.005em; line-height:1;}
+.prog-opt-sub{margin:0; font-size:11px; letter-spacing:.1em; text-transform:uppercase; font-weight:600;}
+.prog-opt:hover{color:var(--text);}
+.prog-opt.on{color:var(--text); border-bottom-color:var(--accent);}
+.prog-opt.on .prog-opt-sub{color:var(--accent-700);}
+
 .stat-row{display:grid; grid-template-columns:repeat(3,1fr); border-bottom:2px solid var(--divider);}
 .stat{padding:20px 0;}
 .stat + .stat{padding-left:20px; border-left:2px solid var(--divider);}
@@ -49,6 +63,12 @@ h1{margin:0; font-size:34px; line-height:1; letter-spacing:-.01em; text-transfor
 .stat-val small{font-size:16px; font-weight:600; color:var(--n500);}
 
 .section-label{margin:26px 0 0; font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--n600); font-weight:600;}
+.pair-label{
+  display:flex; justify-content:space-between; align-items:baseline; gap:12px;
+  margin:24px 0 0; padding:0 0 8px; font-size:11px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--accent-700); font-weight:700;
+}
+.pair-label span:last-child{color:var(--n600); font-weight:600; letter-spacing:.1em;}
 .resume-note{
   display:flex; justify-content:space-between; align-items:center; gap:16px;
   margin:20px 0 0; padding:14px 16px; background:var(--n200); border-left:6px solid var(--accent);
@@ -159,6 +179,22 @@ h1{margin:0; font-size:34px; line-height:1; letter-spacing:-.01em; text-transfor
 .mlabel{margin:0 0 4px; font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:var(--n600); font-weight:600;}
 .mname{margin:0; font-size:16px; font-weight:700; text-transform:uppercase; line-height:1.15;}
 
+/* SUPERSET PARTNER */
+.partner{
+  display:grid; grid-template-columns:64px minmax(0,1fr) auto; gap:14px; align-items:center;
+  width:100%; text-align:left; cursor:pointer; color:inherit;
+  padding:14px 0; margin-top:0; background:none;
+  border:none; border-bottom:2px solid var(--divider);
+  transition:background .15s ease;
+}
+.partner:hover{background:var(--n100);}
+.partner-art{height:56px; background:var(--n100); display:flex; align-items:center; justify-content:center;}
+.partner-label{margin:0 0 3px; font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:var(--n600); font-weight:600;}
+.partner-name{margin:0; font-size:15px; font-weight:700; text-transform:uppercase; line-height:1.15;}
+.partner-dots{display:flex; gap:4px; flex:none;}
+.partner-dot{width:14px; height:14px; border:2px solid var(--n300);}
+.partner-dot.filled{background:var(--accent); border-color:var(--accent);}
+
 .load-row{display:grid; grid-template-columns:minmax(0,1fr) auto; gap:16px; align-items:center; padding:16px 0; border-bottom:2px solid var(--divider);}
 .load-val{margin:0; font-size:26px; font-weight:800; font-variant-numeric:tabular-nums;}
 .load-val span{font-size:15px; font-weight:600; color:var(--n500);}
@@ -186,6 +222,28 @@ h1{margin:0; font-size:34px; line-height:1; letter-spacing:-.01em; text-transfor
   margin:20px 0 0; padding:14px 16px; border:2px solid var(--n300);
 }
 .a2hs p{margin:0; font-size:12.5px; line-height:1.45; color:var(--n800);}
+.a2hs strong{font-weight:800;}
+.warm{border-bottom:2px solid var(--divider);}
+.warm-head{
+  display:grid; grid-template-columns:minmax(0,1fr) auto; gap:16px; align-items:center;
+  width:100%; padding:18px 0; background:none; border:none; cursor:pointer;
+  text-align:left; color:inherit; transition:background .15s ease;
+}
+.warm-head:hover{background:var(--n100);}
+.warm-title{margin:0 0 3px; font-size:17px; font-weight:800; text-transform:uppercase; letter-spacing:-.005em; line-height:1;}
+.warm-sub{margin:0; font-size:12px; color:var(--n600);}
+.warm-chev{font-size:15px; font-weight:800; color:var(--n500);}
+.warm-body[hidden]{display:none;}
+.warm-body{padding:0 0 18px;}
+.warm-item{
+  display:grid; grid-template-columns:26px minmax(0,1fr) auto; gap:12px; align-items:baseline;
+  padding:11px 0; border-top:2px solid var(--n200);
+}
+.warm-n{margin:0; font-size:12px; font-weight:800; color:var(--accent);}
+.warm-name{margin:0; font-size:14px; font-weight:700; line-height:1.3;}
+.warm-note{margin:2px 0 0; font-size:12.5px; line-height:1.4; color:var(--n600); text-wrap:pretty;}
+.warm-dose{margin:0; font-size:12px; font-weight:700; color:var(--n700); white-space:nowrap; font-variant-numeric:tabular-nums;}
+.warm-foot{margin:14px 0 0; font-size:12px; line-height:1.55; color:var(--n600); text-wrap:pretty;}
 .update-toast{
   position:fixed; left:0; right:0; bottom:0; z-index:60;
   padding:14px 24px calc(14px + env(safe-area-inset-bottom));
@@ -206,7 +264,6 @@ h1{margin:0; font-size:34px; line-height:1; letter-spacing:-.01em; text-transfor
 .update-toast button.go:hover{background:var(--accent-600);}
 .update-toast button.later{color:rgba(243,242,242,.6);}
 .update-toast button.later:hover{color:var(--bg);}
-.a2hs strong{font-weight:800;}
 .sync-line{
   display:flex; align-items:center; gap:8px; margin:18px 0 0;
   font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--n500); font-weight:700;
@@ -303,6 +360,9 @@ h1{margin:0; font-size:34px; line-height:1; letter-spacing:-.01em; text-transfor
 .ill .kb{color:var(--accent);}
 .ill .gh .kb{color:var(--n300);}
 .ill .kb .bar{stroke-width:5;}
+.ill .kb rect{fill:currentColor; stroke:none;}
+.ill .cbl{color:var(--n400); stroke-width:2.5; stroke-dasharray:none;}
+.ill .gh .cbl{color:var(--n300);}
 .ill .arc{color:var(--accent); stroke-width:3.5; stroke-dasharray:9 7; animation:flow 1.1s linear infinite;}
 .ill .arw{color:var(--accent); stroke-width:3;}
 .ill .gnd{stroke:var(--n300); stroke-width:2;}
@@ -324,8 +384,8 @@ h1{margin:0; font-size:34px; line-height:1; letter-spacing:-.01em; text-transfor
 <div class="wrap">
   <header>
     <div>
-      <p class="eyebrow">Once a week / no machines</p>
-      <h1>Kettlebell</h1>
+      <p class="eyebrow" id="progEyebrow">—</p>
+      <h1 id="progName">Kettlebell</h1>
     </div>
     <p class="datestamp" id="dateStamp">—</p>
   </header>
@@ -335,8 +395,10 @@ h1{margin:0; font-size:34px; line-height:1; letter-spacing:-.01em; text-transfor
 <div class="sticky-cta hidden" id="stickyCta"><div class="sticky-cta-inner" id="ctaInner"></div></div>
 
 <script>
-/* ---------- DATA ---------- */
-const EX = [
+/* ---------- PROGRAM DATA ---------- */
+const YT = q => 'https://www.youtube.com/results?search_query=' + encodeURIComponent(q);
+
+const KETTLEBELL = [
   {name:"Kettlebell Swing",sets:4,reps:"15 reps",muscle:"Glutes / Hamstrings",perSide:false,kg:16,
    video:"https://www.youtube.com/watch?v=1Qi0NQW89Oc",
    cues:["Hinge at the hips — this is not a squat.","Snap the hips hard; the arms only steer.","Bell floats to chest height, no higher."],
@@ -362,18 +424,129 @@ const EX = [
    cues:["Bell locked overhead, hinge toward the opposite foot.","Keep the loaded arm vertical the whole way down.","Optional — the first five lifts matter more."],
    pose:{dur:1.9,ghost:{neck:[70,46],hip:[70,86],sh:[70,50],head:[68,32],legs:[[[60,108],[56,131]],[[82,108],[86,131]]],arms:[[[84,36],[94,22]],[[58,66],[56,84]]],bell:[96,14]},solid:{neck:[56,64],hip:[72,84],sh:[58,66],head:[46,52],legs:[[[58,108],[52,131]],[[92,106],[98,131]]],arms:[[[76,48],[92,32]],[[46,86],[44,110]]],bell:[96,24]},arc:"M86 44 A 46 46 0 0 0 54 84",arrow:"M47 77 L52 86 L61 82"}}
 ];
-const REST_SIDE = 30, REST_SET = 60, REST_LIFT = 90;
+
+const RIG_BENCH_FLAT = '<rect x="18" y="96" width="88" height="7" fill="var(--n300)"/><rect x="26" y="103" width="6" height="26" fill="var(--n300)"/><rect x="94" y="103" width="6" height="26" fill="var(--n300)"/>';
+const RIG_BENCH_STEP = '<rect x="86" y="98" width="34" height="7" fill="var(--n300)"/><rect x="96" y="105" width="6" height="26" fill="var(--n300)"/>';
+const RIG_PULLDOWN = '<rect x="108" y="6" width="8" height="122" fill="var(--n200)"/><rect x="50" y="6" width="66" height="6" fill="var(--n300)"/><rect x="52" y="102" width="38" height="6" fill="var(--n300)"/>';
+const RIG_ROW = '<rect x="8" y="92" width="12" height="30" fill="var(--n200)"/><rect x="8" y="92" width="12" height="6" fill="var(--n300)"/><rect x="56" y="106" width="40" height="6" fill="var(--n300)"/>';
+
+const GYM = [
+  {name:"Romanian Deadlift",sets:3,reps:"8–10 reps",muscle:"Hamstrings / Glutes",perSide:false,kg:40,
+   video:YT("romanian deadlift proper form tutorial"),
+   cues:["Push the hips back — the bar slides down the thighs.","Stop when the hamstrings run out, not when the back rounds.","Squeeze the glutes to stand; don't yank with the arms."],
+   pose:{dur:2.4,
+     ghost:{neck:[66,44],hip:[66,86],sh:[66,48],head:[62,30],legs:[[[60,108],[58,131]],[[74,108],[78,131]]],arms:[[[72,66],[74,84]]],bar:[74,88]},
+     solid:{neck:[46,62],hip:[68,86],sh:[46,64],head:[36,52],legs:[[[62,108],[58,131]],[[78,108],[82,131]]],arms:[[[50,84],[52,102]]],bar:[52,106]},
+     arc:"M104 86 L104 110",arrow:"M98 104 L104 113 L110 104"}},
+  {name:"DB Bench Press",sets:3,reps:"8–10 reps",muscle:"Chest / Triceps",perSide:false,kg:20,
+   video:YT("dumbbell bench press proper form tutorial"),
+   cues:["Shoulder blades pinned down and back into the bench.","Elbows around 45°, not flared straight out.","Lower to chest level, press until the arms are long."],
+   pose:{dur:2,extra:RIG_BENCH_FLAT,
+     ghost:{neck:[42,90],hip:[76,90],sh:[44,90],head:[28,88],legs:[[[92,98],[98,126]],[[96,102],[106,126]]],arms:[[[32,78],[44,76]]],dbs:[[44,72]]},
+     solid:{neck:[42,90],hip:[76,90],sh:[44,90],head:[28,88],legs:[[[92,98],[98,126]],[[96,102],[106,126]]],arms:[[[44,72],[46,56]]],dbs:[[46,52]]},
+     arc:"M16 76 L16 54",arrow:"M10 60 L16 51 L22 60"}},
+  {name:"Bulgarian Split Squat",sets:3,reps:"8–10 / side",muscle:"Glutes / Quads",perSide:true,kg:12,
+   video:YT("bulgarian split squat proper form tutorial"),
+   cues:["Front foot far enough forward that the shin stays near vertical.","Drop straight down — think elevator, not lunge forward.","Rear leg only balances; the front leg does the work."],
+   pose:{dur:2.4,extra:RIG_BENCH_STEP,
+     ghost:{neck:[54,40],hip:[54,80],sh:[54,44],head:[52,26],legs:[[[50,104],[48,131]],[[76,94],[96,100]]],arms:[[[60,60],[60,78]]],dbs:[[60,82]]},
+     solid:{neck:[54,58],hip:[54,98],sh:[54,62],head:[52,44],legs:[[[46,112],[48,131]],[[72,116],[96,100]]],arms:[[[60,78],[60,96]]],dbs:[[60,100]]},
+     arc:"M26 76 L26 100",arrow:"M20 94 L26 103 L32 94"}},
+  {name:"Lat Pulldown",sets:3,reps:"8–10 reps",muscle:"Lats / Upper back",perSide:false,kg:40,
+   video:YT("lat pulldown proper form tutorial"),
+   cues:["Chest up, slight lean back — then hold that angle.","Drive the elbows down to the ribs, not the hands.","Let the bar rise all the way to a full stretch."],
+   pose:{dur:2.2,extra:RIG_PULLDOWN,
+     ghost:{neck:[70,58],hip:[70,96],sh:[70,62],head:[68,44],legs:[[[48,100],[44,124]],[[52,104],[40,128]]],arms:[[[62,42],[60,26]]],grip:[60,22],cable:[[60,22],[60,13]]},
+     solid:{neck:[70,58],hip:[70,96],sh:[70,62],head:[68,44],legs:[[[48,100],[44,124]],[[52,104],[40,128]]],arms:[[[56,64],[60,50]]],grip:[60,46],cable:[[60,46],[60,13]]},
+     arc:"M28 26 L28 48",arrow:"M22 42 L28 51 L34 42"}},
+  {name:"Seated Cable Row",sets:3,reps:"8–10 reps",muscle:"Mid-back / Rear delts",perSide:false,kg:40,
+   video:YT("seated cable row proper form tutorial"),
+   cues:["Sit tall — the torso rocks a few degrees, not a rowing motion.","Pull to the belly, elbows brushing the ribs.","Hold the squeeze for a beat before letting it back out."],
+   pose:{dur:2,extra:RIG_ROW,
+     ghost:{neck:[68,64],hip:[76,100],sh:[68,68],head:[64,50],legs:[[[46,98],[24,102]],[[50,104],[26,110]]],arms:[[[54,80],[38,90]]],grip:[36,90],cable:[[36,90],[18,96]]},
+     solid:{neck:[76,60],hip:[76,100],sh:[76,64],head:[74,46],legs:[[[46,98],[24,102]],[[50,104],[26,110]]],arms:[[[84,74],[66,84]]],grip:[64,84],cable:[[64,84],[18,96]]},
+     arc:"M38 124 L76 124",arrow:"M70 118 L79 124 L70 130"}},
+  {name:"DB Overhead Press",sets:3,reps:"8–10 reps",muscle:"Shoulders",perSide:false,kg:12,
+   video:YT("standing dumbbell overhead press proper form"),
+   cues:["Ribs down, glutes tight — no leaning back to cheat it.","Press slightly back so the bells finish over the ears.","Lower under control to shoulder height, then go again."],
+   pose:{dur:2,
+     ghost:{neck:[64,44],hip:[64,86],sh:[66,48],head:[62,30],legs:[[[58,108],[56,131]],[[72,108],[76,131]]],arms:[[[80,58],[78,44]]],dbs:[[78,40]]},
+     solid:{neck:[64,44],hip:[64,86],sh:[66,48],head:[62,30],legs:[[[58,108],[56,131]],[[72,108],[76,131]]],arms:[[[78,34],[78,18]]],dbs:[[78,14]]},
+     arc:"M102 50 L102 20",arrow:"M96 26 L102 17 L108 26"}}
+];
+
+const PROGRAMS = {
+  kettlebell: {
+    id:'kettlebell', name:'Kettlebell', short:'Kettlebell', sub:'6 lifts · 45 min',
+    eyebrow:'Once a week / no machines',
+    ex:KETTLEBELL, pairs:null, scheme:'Straight sets',
+    rests:{side:30, set:60, lift:90},
+    restNote:'Rest 30s between sides, 60s between sets, 90s between lifts. Tap any lift to jump straight to it — the session only ends once every lift is done or skipped.',
+    restCue:'Breathe through the nose. Set the bell down — don\u2019t hold it through the rest.',
+    step:2,
+    warmup:{mins:4, items:[
+      {name:'Hip hinge, no weight', dose:'15 reps', note:'Hands on the crease, push the hips back until the hamstrings load.'},
+      {name:'Halo with the light bell', dose:'5 each way', note:'Wakes up the shoulders before the press and get-up.'},
+      {name:'Deadstop swings, light', dose:'2 × 8', note:'Same pattern, half the load — the real warm-up for the first lift.'}
+    ]}
+  },
+  gym: {
+    id:'gym', name:'Gym', short:'Gym', sub:'3 supersets · 45 min',
+    eyebrow:'Once a week / full gym',
+    ex:GYM, pairs:[[0,1],[2,3],[4,5]], scheme:'3 × 8–10, paired',
+    rests:{within:30, between:120, side:0},
+    restNote:'Three supersets of two. 30s between the paired lifts, 120s after each round. Six compounds, no isolation — arms and calves get worked by the presses, pulls and hinge.',
+    restCue:'Set up the next station while you wait. Last set of each pair should finish close to failure.',
+    step:5, stepFrom:30,
+    warmup:{mins:6, items:[
+      {name:'Bike, row or brisk walk', dose:'3 min', note:'Enough to break a light sweat. Do not skip this one.'},
+      {name:'Band pull-apart', dose:'2 × 15', note:'Preps the mid-back for the row, pulldown and bench.'},
+      {name:'Bodyweight hip hinge', dose:'15 reps', note:'Then one empty-bar set of 10 before the RDL.'},
+      {name:'Split-stance knee bend', dose:'8 / side', note:'Rehearses the Bulgarian without the dumbbells.'}
+    ]}
+  }
+};
+
+const K_PROGRAM = 'kb.program';
+let PROG = PROGRAMS[localStorage.getItem(K_PROGRAM)] ? PROGRAMS[localStorage.getItem(K_PROGRAM)] : PROGRAMS.kettlebell;
+let EX = PROG.ex;
 const taps = i => EX[i].sets * (EX[i].perSide ? 2 : 1);
-const totalTaps = EX.reduce((a,_,i)=>a+taps(i),0);
+let totalTaps = EX.reduce((a,_,i)=>a+taps(i),0);
+const pairIndex = i => PROG.pairs ? PROG.pairs.findIndex(p => p.indexOf(i) >= 0) : -1;
 
 /* ---------- ILLUSTRATION ---------- */
 const PT = a => a[0]+' '+a[1];
+const R2 = n => Math.round(n*10)/10;
+function kettle(p){
+  return '<g class="kb"><path class="bar" d="M'+R2(p[0]-7)+' '+R2(p[1]-7)+' q7 -11 14 0"/><circle cx="'+R2(p[0])+'" cy="'+R2(p[1]+3)+'" r="9"/></g>';
+}
+function barbell(p){
+  const x = R2(p[0]), y = R2(p[1]);
+  return '<g class="kb"><path class="bar" d="M'+R2(x-24)+' '+y+' L'+R2(x+24)+' '+y+'"/>'
+    + '<rect x="'+R2(x-29)+'" y="'+R2(y-10)+'" width="6" height="20"/>'
+    + '<rect x="'+R2(x+23)+'" y="'+R2(y-10)+'" width="6" height="20"/></g>';
+}
+function dumbbell(p){
+  const x = R2(p[0]), y = R2(p[1]);
+  return '<g class="kb"><path class="bar" d="M'+R2(x-8)+' '+y+' L'+R2(x+8)+' '+y+'"/>'
+    + '<rect x="'+R2(x-12)+'" y="'+R2(y-7)+'" width="5" height="14"/>'
+    + '<rect x="'+R2(x+7)+'" y="'+R2(y-7)+'" width="5" height="14"/></g>';
+}
+function gripbar(p){
+  const x = R2(p[0]), y = R2(p[1]);
+  return '<g class="kb"><path class="bar" d="M'+R2(x-16)+' '+y+' L'+R2(x+16)+' '+y+'"/></g>';
+}
 function limbs(j){
-  let s = '<path class="trunk" d="M'+PT(j.neck)+' L'+PT(j.hip)+'"/>';
+  let s = '';
+  if(j.cable) s += '<path class="cbl" d="M'+PT([R2(j.cable[0][0]),R2(j.cable[0][1])])+' L'+PT([R2(j.cable[1][0]),R2(j.cable[1][1])])+'"/>';
+  s += '<path class="trunk" d="M'+PT(j.neck)+' L'+PT(j.hip)+'"/>';
   (j.legs||[]).forEach(l => { s += '<path class="thigh" d="M'+PT(j.hip)+' L'+PT(l[0])+'"/><path class="shin" d="M'+PT(l[0])+' L'+PT(l[1])+'"/>'; });
   (j.arms||[]).forEach(a => { s += '<path class="uarm" d="M'+PT(j.sh)+' L'+PT(a[0])+'"/><path class="farm" d="M'+PT(a[0])+' L'+PT(a[1])+'"/>'; });
-  s += '<circle cx="'+j.head[0]+'" cy="'+j.head[1]+'" r="10"/>';
-  if(j.bell) s += '<g class="kb"><path class="bar" d="M'+(j.bell[0]-7)+' '+(j.bell[1]-7)+' q7 -11 14 0"/><circle cx="'+j.bell[0]+'" cy="'+(j.bell[1]+3)+'" r="9"/></g>';
+  s += '<circle cx="'+R2(j.head[0])+'" cy="'+R2(j.head[1])+'" r="10"/>';
+  if(j.bell) s += kettle(j.bell);
+  if(j.bar) s += barbell(j.bar);
+  if(j.grip) s += gripbar(j.grip);
+  (j.dbs||[]).forEach(d => { s += dumbbell(d); });
   return s;
 }
 const lerp = (a,b,t) => [a[0]+(b[0]-a[0])*t, a[1]+(b[1]-a[1])*t];
@@ -382,6 +555,10 @@ function mix(g,s,t){
   o.legs = (s.legs||[]).map((l,i)=> l.map((pt,k)=> lerp((g.legs[i]||l)[k], pt, t)));
   o.arms = (s.arms||[]).map((a,i)=> a.map((pt,k)=> lerp((g.arms[i]||a)[k], pt, t)));
   if(s.bell) o.bell = lerp(g.bell||s.bell, s.bell, t);
+  if(s.bar)  o.bar  = lerp(g.bar||s.bar, s.bar, t);
+  if(s.grip) o.grip = lerp(g.grip||s.grip, s.grip, t);
+  if(s.dbs)  o.dbs  = s.dbs.map((d,i)=> lerp((g.dbs||s.dbs)[i]||d, d, t));
+  if(s.cable) o.cable = s.cable.map((pt,i)=> lerp(((g.cable||s.cable)[i])||pt, pt, t));
   return o;
 }
 const TS = [0,1/6,2/6,3/6,4/6,5/6,1,5/6,4/6,3/6,2/6,1/6];
@@ -400,11 +577,16 @@ function art(p, compact){
 const svgWrap = (inner, cls) => '<div class="ill '+(cls||'')+'"><svg viewBox="0 0 130 140" aria-hidden="true"><g>'+inner+'</g></svg></div>';
 
 /* ---------- STORAGE ---------- */
-const K_SESSION = 'foundry.session.v2', K_WEIGHTS = 'foundry.weights.v2', K_HISTORY = 'foundry.history.v2';
 const readJSON = (k, fb) => { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : fb; } catch(e){ return fb; } };
 const writeJSON = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch(e){} };
 
-const K_WEIGHTS3 = 'foundry.weights.v3', K_A2HS = 'foundry.a2hs.dismissed', K_CODE = 'foundry.code';
+/* Kettlebell keeps its original key names so existing logs survive. */
+const KEYS = p => p === 'kettlebell'
+  ? {session:'foundry.session.v2', weights:'foundry.weights.v3', weightsLegacy:'foundry.weights.v2', history:'foundry.history.v2'}
+  : {session:'kb.session.'+p, weights:'kb.weights.'+p, weightsLegacy:null, history:'kb.history.'+p};
+let K = KEYS(PROG.id);
+
+const K_A2HS = 'foundry.a2hs.dismissed', K_CODE = 'foundry.code';
 const CODE_CHARS = 'ACDEFGHJKLMNPQRTUVWXY34679';
 function makeCode(){
   let s = '';
@@ -427,22 +609,26 @@ function adoptCode(v){
   return true;
 }
 const pair = (v, fb) => Array.isArray(v) ? [v[0]||fb, v[1]||v[0]||fb] : (typeof v === 'number' ? [v,v] : [fb,fb]);
-function normWeights(raw){ return EX.map((e,i)=> pair(raw && raw[i], e.kg)); }
-let weights = normWeights(readJSON(K_WEIGHTS3, null) || readJSON(K_WEIGHTS, null));
-const saveWeights = () => { writeJSON(K_WEIGHTS3, weights); writeJSON(K_WEIGHTS3+'.at', Date.now()); };
+function normWeights(raw, list){
+  list = list || EX;
+  return list.map((e,i)=> pair(raw && raw[i], e.kg));
+}
+let weights = normWeights(readJSON(K.weights, null) || (K.weightsLegacy ? readJSON(K.weightsLegacy, null) : null));
+const saveWeights = () => { writeJSON(K.weights, weights); writeJSON(K.weights+'.at', Date.now()); };
 const kgText = i => (EX[i].perSide && weights[i][0] !== weights[i][1]) ? weights[i][0]+'/'+weights[i][1]+' kg' : weights[i][0]+' kg';
-function tonnage(logged, w){
-  w = w || weights;
-  return Math.round(EX.reduce((a,e,i)=>{
+function tonnage(logged, w, list){
+  list = list || EX; w = w || weights;
+  return Math.round(list.reduce((a,e,i)=>{
     const n = logged[i] || 0; if(!n) return a;
     if(!e.perSide) return a + n * pair(w[i], e.kg)[0];
     const p = pair(w[i], e.kg);
     return a + (Math.ceil(n/2)*p[0] + Math.floor(n/2)*p[1]) / 2;
   },0));
 }
-let history = readJSON(K_HISTORY, []);
+let history = readJSON(K.history, []);
 
 const state = {
+  program: PROG.id,
   view:'overview', ex:0,
   logged: EX.map(()=>0),
   status: EX.map(()=>'pending'),        // pending | done | skipped
@@ -454,19 +640,50 @@ const state = {
 
 function persist(){
   const live = state.logged.some(n=>n>0) && state.view !== 'finished';
-  if(!live){ localStorage.removeItem(K_SESSION); return; }
-  writeJSON(K_SESSION, {
+  if(!live){ localStorage.removeItem(K.session); return; }
+  writeJSON(K.session, {
     ex:state.ex, logged:state.logged, status:state.status,
     accum:elapsed(), restEndsAt:state.restEndsAt, restTotal:state.restTotal,
     restNext:state.restNext, restKind:state.restKind, savedAt:Date.now()
   });
 }
-function restoreSession(){
-  const s = readJSON(K_SESSION, null);
+function restoreSession(keys){
+  const s = readJSON(keys.session, null);
   if(!s || !s.logged || Date.now() - (s.savedAt||0) > 8*3600*1000) return null;
   return s;
 }
-const saved = restoreSession();
+function applySaved(s){
+  if(!s) return;
+  state.ex = s.ex||0;
+  state.logged = EX.map((_,i)=> (s.logged && s.logged[i]) || 0);
+  state.status = EX.map((_,i)=> (s.status && s.status[i]) || 'pending');
+  state.accum = s.accum||0;
+  if(s.restEndsAt && s.restEndsAt > Date.now()){
+    state.restEndsAt = s.restEndsAt; state.restTotal = s.restTotal;
+    state.restNext = s.restNext; state.restKind = s.restKind;
+  }
+}
+
+function switchProgram(id){
+  if(!PROGRAMS[id] || id === state.program) return;
+  persist();
+  pauseStopwatch(); releaseWakeLock();
+  localStorage.setItem(K_PROGRAM, id);
+  PROG = PROGRAMS[id]; EX = PROG.ex; K = KEYS(id);
+  totalTaps = EX.reduce((a,_,i)=>a+taps(i),0);
+  weights = normWeights(readJSON(K.weights, null) || (K.weightsLegacy ? readJSON(K.weightsLegacy, null) : null));
+  history = readJSON(K.history, []);
+  state.program = id; state.view = 'overview'; state.ex = 0;
+  state.logged = EX.map(()=>0); state.status = EX.map(()=>'pending'); state.effort = EX.map(()=>null);
+  state.accum = 0; state.runningSince = null; state.restEndsAt = null;
+  applySaved(restoreSession(K));
+  paintHeader();
+  render('fwd');
+}
+function paintHeader(){
+  document.getElementById('progName').textContent = PROG.name;
+  document.getElementById('progEyebrow').textContent = PROG.eyebrow;
+}
 
 /* ---------- SYNC BRIDGE (Firebase, optional) ---------- */
 const sync = { state:'off', at:0, pushFn:null };
@@ -494,7 +711,17 @@ function mergeHistory(a, b){
   });
   return Object.keys(byDate).map(k=>byDate[k]).sort((x,y)=> y.date - x.date).slice(0,24);
 }
-const localSnapshot = () => ({ history: history, weights: weights, updatedAt: Date.now() });
+function localSnapshot(){
+  const programs = {};
+  Object.keys(PROGRAMS).forEach(p => {
+    const kk = KEYS(p);
+    programs[p] = {
+      history: p === state.program ? history : readJSON(kk.history, []),
+      weights: p === state.program ? weights : readJSON(kk.weights, null)
+    };
+  });
+  return { programs: programs, history: programs.kettlebell.history, weights: programs.kettlebell.weights, updatedAt: Date.now() };
+}
 function pushSync(){ if(sync.pushFn){ try{ sync.pushFn(localSnapshot()); }catch(e){} } }
 window.KB = {
   code: myCode,
@@ -503,17 +730,25 @@ window.KB = {
   snapshot: localSnapshot,
   applyRemote(remote){
     if(!remote) return;
+    const incoming = remote.programs || { kettlebell: { history: remote.history, weights: remote.weights } };
     let changed = false;
-    const merged = mergeHistory(history, remote.history);
-    if(merged.length !== history.length || JSON.stringify(merged) !== JSON.stringify(history)){
-      history = merged; writeJSON(K_HISTORY, history); changed = true;
-    }
-    if(remote.weights && (remote.updatedAt||0) > (readJSON(K_WEIGHTS3+'.at', 0) || 0)){
-      const nw = normWeights(remote.weights);
-      if(JSON.stringify(nw) !== JSON.stringify(weights)){
-        weights = nw; saveWeights(); changed = true;
+    Object.keys(PROGRAMS).forEach(p => {
+      const inc = incoming[p]; if(!inc) return;
+      const kk = KEYS(p);
+      const mine = p === state.program ? history : readJSON(kk.history, []);
+      const merged = mergeHistory(mine, inc.history);
+      if(JSON.stringify(merged) !== JSON.stringify(mine)){
+        writeJSON(kk.history, merged);
+        if(p === state.program){ history = merged; changed = true; }
       }
-    }
+      if(inc.weights && (remote.updatedAt||0) > (readJSON(kk.weights+'.at', 0) || 0)){
+        const nw = normWeights(inc.weights, PROGRAMS[p].ex);
+        if(JSON.stringify(nw) !== JSON.stringify(readJSON(kk.weights, null))){
+          writeJSON(kk.weights, nw);
+          if(p === state.program){ weights = nw; changed = true; }
+        }
+      }
+    });
     sync.state = 'ok'; sync.at = Date.now();
     if(changed && (state.view === 'overview' || state.view === 'history')) render();
     else syncLine();
@@ -529,7 +764,7 @@ const isResting = () => state.restEndsAt !== null && restLeft() > 0;
 function startStopwatch(){ if(!state.runningSince) state.runningSince = Date.now(); }
 function pauseStopwatch(){ if(state.runningSince){ state.accum = elapsed(); state.runningSince = null; } }
 
-let ticker = null, restDone = false;
+let restDone = false;
 function tick(){
   if(state.view !== 'session') return;
   const topClock = document.getElementById('sessClockVal');
@@ -577,6 +812,7 @@ async function requestWakeLock(){
 function releaseWakeLock(){ if(wakeLock){ try{ wakeLock.release(); }catch(e){} wakeLock = null; } }
 
 /* ---------- SESSION LOGIC ---------- */
+const openLift = i => state.status[i] === 'pending' && state.logged[i] < taps(i);
 function nextPending(from){
   for(let i=from;i<EX.length;i++) if(state.status[i]==='pending' && state.logged[i]<taps(i)) return i;
   for(let i=0;i<from;i++) if(state.status[i]==='pending' && state.logged[i]<taps(i)) return i;
@@ -585,6 +821,7 @@ function nextPending(from){
 const sideLabel = (i, n) => EX[i].perSide ? (n % 2 === 0 ? 'Left' : 'Right') : null;
 
 function beginRest(sec, label, kind){
+  if(!sec){ state.restEndsAt = null; render(); persist(); return; }
   state.restEndsAt = Date.now() + sec*1000; state.restTotal = sec; state.restNext = label; state.restKind = kind || '';
   restDone = false; render();
 }
@@ -593,21 +830,47 @@ function endRest(auto){
   if(auto) beep();
   render(); persist();
 }
+const setNo = i => Math.floor(state.logged[i]/(EX[i].perSide?2:1)) + 1;
 
 function logSet(){
   primeAudio();
   const i = state.ex, ex = EX[i], n = state.logged[i] + 1;
   state.logged[i] = n; state.lastPoppedDot = n - 1;
+
+  if(PROG.pairs){
+    // Unilateral: switch sides with no rest, stay on the same lift.
+    if(ex.perSide && n % 2 === 1){ render(); persist(); return; }
+    if(n >= taps(i)) state.status[i] = 'done';
+    const pr = PROG.pairs[pairIndex(i)];
+    const partner = pr[0] === i ? pr[1] : pr[0];
+    if(pr[0] === i && openLift(partner)){
+      state.ex = partner;
+      beginRest(PROG.rests.within, EX[partner].name + ' — set ' + setNo(partner), 'within');
+      persist(); return;
+    }
+    const back = pr.filter(openLift)[0];
+    if(back !== undefined){
+      state.ex = back;
+      beginRest(PROG.rests.between, EX[back].name + ' — set ' + setNo(back), 'round');
+      persist(); return;
+    }
+    const nx = nextPending(0);
+    if(nx === -1){ finish(); return; }
+    state.ex = nx;
+    beginRest(PROG.rests.between, EX[nx].name, 'pair');
+    persist(); return;
+  }
+
   if(n >= taps(i)){
     state.status[i] = 'done';
     const nx = nextPending(i+1);
     if(nx === -1){ finish(); return; }
     state.ex = nx;
-    beginRest(REST_LIFT, EX[nx].name, 'lift');
+    beginRest(PROG.rests.lift, EX[nx].name, 'lift');
     return;
   }
-  if(ex.perSide && n % 2 === 1) beginRest(REST_SIDE, ex.name + ' — right side', 'side');
-  else beginRest(ex.perSide ? REST_SET : REST_SET, ex.name + ' — set ' + (Math.floor(n/(ex.perSide?2:1))+1), 'set');
+  if(ex.perSide && n % 2 === 1) beginRest(PROG.rests.side, ex.name + ' — right side', 'side');
+  else beginRest(PROG.rests.set, ex.name + ' — set ' + setNo(i), 'set');
   persist();
 }
 function setLogged(i, n){
@@ -632,11 +895,15 @@ function goLift(i, dir){
 }
 function finish(force){
   const pend = nextPending(0);
-  if(pend !== -1 && !force){ state.ex = pend; beginRest(REST_LIFT, EX[pend].name, 'lift'); persist(); return; }
+  if(pend !== -1 && !force){
+    state.ex = pend;
+    beginRest(PROG.pairs ? PROG.rests.between : PROG.rests.lift, EX[pend].name, 'pair');
+    persist(); return;
+  }
   pauseStopwatch(); releaseWakeLock();
   state.restEndsAt = null; state.view = 'finished';
   const entry = {
-    date: Date.now(), secs: elapsed(),
+    date: Date.now(), secs: elapsed(), program: PROG.id,
     sets: state.logged.reduce((a,n,i)=> a + Math.floor(n/(EX[i].perSide?2:1)), 0),
     lifts: state.status.filter(s=>s==='done').length,
     tonnage: tonnage(state.logged),
@@ -644,15 +911,15 @@ function finish(force){
     effort: state.effort.slice()
   };
   history = [entry].concat(history).slice(0,24);
-  writeJSON(K_HISTORY, history);
+  writeJSON(K.history, history);
   pushSync();
-  localStorage.removeItem(K_SESSION);
+  localStorage.removeItem(K.session);
   render();
 }
 function resetAll(){
   state.ex = 0; state.logged = EX.map(()=>0); state.status = EX.map(()=>'pending'); state.effort = EX.map(()=>null);
   state.accum = 0; state.runningSince = null; state.restEndsAt = null; state.view = 'overview';
-  localStorage.removeItem(K_SESSION); render('back');
+  localStorage.removeItem(K.session); render('back');
 }
 function exitToOverview(){ pauseStopwatch(); releaseWakeLock(); state.view = 'overview'; render('back'); persist(); }
 function startSession(){
@@ -660,14 +927,20 @@ function startSession(){
   const i = nextPending(0);
   goLift(i === -1 ? 0 : i, 'fwd');
 }
+function loadStep(i){
+  const base = PROG.step || 2;
+  if(PROG.stepFrom && weights[i][0] < PROG.stepFrom) return base / 2;
+  return base;
+}
 function bumpWeight(i, side, d){
-  const v = Math.max(2, Math.round((weights[i][side] + d) * 2) / 2);
+  const step = loadStep(i);
+  const v = Math.max(step, Math.round((weights[i][side] + (d > 0 ? step : -step)) * 2) / 2);
   if(EX[i].perSide) weights[i][side] = v; else weights[i] = [v,v];
   saveWeights(); pushSync(); render();
 }
 function rate(i, val){
   state.effort[i] = state.effort[i] === val ? null : val;
-  if(history[0]){ history[0].effort = state.effort.slice(); writeJSON(K_HISTORY, history); pushSync(); }
+  if(history[0]){ history[0].effort = state.effort.slice(); writeJSON(K.history, history); pushSync(); }
   render();
 }
 
@@ -682,48 +955,91 @@ function setCta(html, handlers){
 }
 
 /* ---------- VIEWS ---------- */
+function programPicker(){
+  return '<div class="prog-pick">' + Object.keys(PROGRAMS).map(id => {
+    const p = PROGRAMS[id];
+    return '<button class="prog-opt'+(id===state.program?' on':'')+'" data-prog="'+id+'">'
+      + '<p class="prog-opt-name">'+p.short+'</p><p class="prog-opt-sub">'+p.sub+'</p></button>';
+  }).join('') + '</div>';
+}
+
+function exRow(e, i, opts){
+  const st = state.status[i];
+  const setsDone = Math.floor(state.logged[i]/(e.perSide?2:1));
+  const color = st==='done' ? 'var(--accent)' : st==='skipped' ? 'var(--n500)' : 'var(--n600)';
+  const label = st==='done' ? 'Done' : st==='skipped' ? 'Skipped' : (state.logged[i]>0 ? setsDone+'/'+e.sets : '');
+  return '<button class="row" style="animation-delay:'+(i*55)+'ms" data-jump="'+i+'">'
+    + '<p class="row-num" style="color:'+(st==='done'?'var(--accent)':'var(--n500)')+'">'+(opts&&opts.tag ? opts.tag : String(i+1).padStart(2,'0'))+'</p>'
+    + '<div class="row-art">'+svgWrap(art(e.pose,true))+'</div>'
+    + '<div><p class="row-name">'+e.name+'</p><p class="row-scheme">'+e.sets+' × '+e.reps+'</p>'
+    + '<span class="row-tags"><span class="tag-outline">'+e.muscle+'</span><span class="tag-outline tag-load">'+kgText(i)+'</span></span></div>'
+    + '<p class="row-state" style="color:'+color+'">'+label+'</p></button>';
+}
+
 function renderOverview(){
   const done = state.status.filter(s=>s==='done').length;
   const loggedSets = state.logged.reduce((a,n,i)=> a + Math.floor(n/(EX[i].perSide?2:1)), 0);
   const inProgress = state.logged.some(n=>n>0);
-  const rows = EX.map((e,i)=>{
-    const st = state.status[i];
-    const setsDone = Math.floor(state.logged[i]/(e.perSide?2:1));
-    const color = st==='done' ? 'var(--accent)' : st==='skipped' ? 'var(--n500)' : 'var(--n600)';
-    const label = st==='done' ? 'Done' : st==='skipped' ? 'Skipped' : (state.logged[i]>0 ? setsDone+'/'+e.sets : '');
-    return '<button class="row" style="animation-delay:'+(i*55)+'ms" data-jump="'+i+'">'
-      + '<p class="row-num" style="color:'+(st==='done'?'var(--accent)':'var(--n500)')+'">'+String(i+1).padStart(2,'0')+'</p>'
-      + '<div class="row-art">'+svgWrap(art(e.pose,true))+'</div>'
-      + '<div><p class="row-name">'+e.name+'</p><p class="row-scheme">'+e.sets+' × '+e.reps+'</p>'
-      + '<span class="row-tags"><span class="tag-outline">'+e.muscle+'</span><span class="tag-outline tag-load">'+kgText(i)+'</span></span></div>'
-      + '<p class="row-state" style="color:'+color+'">'+label+'</p></button>';
-  }).join('');
+
+  let rows = '';
+  if(PROG.pairs){
+    rows = PROG.pairs.map((pr, pi) =>
+      '<p class="pair-label"><span>Superset '+(pi+1)+'</span><span>'
+      + (pi < PROG.pairs.length-1 ? PROG.rests.within+'s between · '+PROG.rests.between+'s after' : PROG.rests.within+'s between')
+      + '</span></p>'
+      + pr.map((i,k)=> exRow(EX[i], i, {tag:(pi+1)+String.fromCharCode(65+k)})).join('')
+    ).join('');
+  } else {
+    rows = '<p class="section-label">The order</p>' + EX.map((e,i)=>exRow(e,i)).join('');
+  }
 
   const last = history[0];
   const lastLine = last
     ? '<div class="hist-row"><span>Last session · '+new Date(last.date).toLocaleDateString(undefined,{month:'short',day:'numeric'})+'</span><span>'+fmt(last.secs)+' · '+last.sets+' sets</span></div>'
     : '';
   const resume = inProgress
-    ? '<div class="resume-note"><p><strong>Session in progress.</strong> '+loggedSets+' sets logged, '+fmt(elapsed())+' on the clock.</p><button class="text-btn" id="discardBtn">Discard</button></div>'
+    ? '<div class="resume-note"><p><strong>Session in progress.</strong> '+loggedSets+' set'+(loggedSets===1?'':'s')+' logged, '+fmt(elapsed())+' on the clock.</p><button class="text-btn" id="discardBtn">Discard</button></div>'
     : '';
 
   const standalone = window.navigator.standalone === true || (window.matchMedia && matchMedia('(display-mode: standalone)').matches);
   const a2hs = (!standalone && !localStorage.getItem(K_A2HS))
     ? '<div class="a2hs"><p><strong>Add it to your home screen.</strong> Share → Add to Home Screen — it launches full screen and keeps working with no signal.</p><button class="text-btn" id="a2hsBtn">Got it</button></div>'
     : '';
-  document.getElementById('main').innerHTML =
-    '<div class="stat-row">'
+
+  const wu = PROG.warmup;
+  const wuOpen = localStorage.getItem('kb.warm.'+PROG.id+'.open') === '1';
+  const warmup = wu ? '<div class="warm">'
+    + '<button class="warm-head" id="warmToggle"><div>'
+    + '<p class="warm-title">Warm-up · '+wu.mins+' min</p>'
+    + '<p class="warm-sub">'+wu.items.length+' movements before the first lift</p></div>'
+    + '<span class="warm-chev">'+(wuOpen?'−':'+')+'</span></button>'
+    + '<div class="warm-body" id="warmBody"'+(wuOpen?'':' hidden')+'>'
+    + wu.items.map((w,k)=>'<div class="warm-item"><p class="warm-n">'+(k+1)+'</p>'
+      + '<div><p class="warm-name">'+w.name+'</p><p class="warm-note">'+w.note+'</p></div>'
+      + '<p class="warm-dose">'+w.dose+'</p></div>').join('')
+    + '<p class="warm-foot">Once a week means you arrive cold. '+wu.mins+' minutes here is the cheapest injury insurance in the session.</p>'
+    + '</div></div>' : '';
+
+  document.getElementById('main').innerHTML = programPicker()
+    + '<div class="stat-row">'
     + '<div class="stat"><p class="stat-label">Lifts done</p><p class="stat-val">'+done+'<small>/'+EX.length+'</small></p></div>'
     + '<div class="stat"><p class="stat-label">Sessions</p><p class="stat-val">'+history.length+'<small> logged</small></p></div>'
     + '<div class="stat"><p class="stat-label">Volume</p><p class="stat-val">'+EX.reduce((a,e)=>a+e.sets,0)+'<small> sets</small></p></div>'
-    + '</div>' + a2hs + resume
-    + '<p class="section-label">The order</p>' + rows
+    + '</div>' + a2hs + resume + warmup + rows
     + '<hr class="hr">' + lastLine
     + (history.length ? '<button class="howto-link" id="histLink" style="margin-top:16px"><span>▤</span><span>Session history — '+history.length+' logged</span></button>' : '')
-    + '<p class="footnote">Rest 30s between sides, 60s between sets, 90s between lifts. Tap any lift to jump straight to it — the session only ends once every lift is done or skipped.</p>'
+    + '<p class="footnote">'+PROG.restNote+'</p>'
     + '<button class="howto-link" id="howtoLink"><span>▶</span><span>How to do these — video guide</span></button>'
     + '<p class="sync-line" id="syncLine"></p>';
 
+  const wt = document.getElementById('warmToggle');
+  if(wt) wt.addEventListener('click', ()=>{
+    const b = document.getElementById('warmBody');
+    b.hidden = !b.hidden;
+    wt.querySelector('.warm-chev').textContent = b.hidden ? '+' : '−';
+    localStorage.setItem('kb.warm.'+PROG.id+'.open', b.hidden ? '0' : '1');
+  });
+  document.querySelectorAll('[data-prog]').forEach(el => el.addEventListener('click', ()=> switchProgram(el.dataset.prog)));
   document.querySelectorAll('[data-jump]').forEach(el => el.addEventListener('click', ()=> goLift(+el.dataset.jump, 'fwd')));
   document.getElementById('howtoLink').addEventListener('click', ()=>{ state.view='howto'; render('fwd'); });
   const d = document.getElementById('discardBtn'); if(d) d.addEventListener('click', resetAll);
@@ -744,18 +1060,34 @@ function sessionTop(){
     + '<div class="progress-track"><div class="progress-fill" style="width:'+(loggedTaps/totalTaps*100).toFixed(1)+'%"></div></div>';
 }
 
+function partnerBlock(i){
+  const pi = pairIndex(i);
+  if(pi < 0) return '';
+  const pr = PROG.pairs[pi];
+  const other = pr[0] === i ? pr[1] : pr[0];
+  const e = EX[other], per = e.perSide ? 2 : 1;
+  const setsDone = Math.floor(state.logged[other]/per);
+  let dots = '';
+  for(let s=0;s<e.sets;s++) dots += '<span class="partner-dot'+(s<setsDone?' filled':'')+'"></span>';
+  return '<button class="partner" data-jump="'+other+'">'
+    + '<div class="partner-art">'+svgWrap(art(e.pose,true))+'</div>'
+    + '<div><p class="partner-label">'+(pr[0]===other?'Paired with — first':'Paired with — second')+'</p>'
+    + '<p class="partner-name">'+e.name+'</p></div>'
+    + '<span class="partner-dots">'+dots+'</span></button>';
+}
+
 function renderLifting(trans){
   const i = state.ex, ex = EX[i], per = ex.perSide ? 2 : 1, n = state.logged[i];
   const cues = ex.cues.map((c,k)=>'<div class="cue"><p class="cue-n">'+(k+1)+'</p><p class="cue-text">'+c+'</p></div>').join('');
   let dots = '';
   for(let s=0; s<ex.sets; s++){
-    let pair = '';
+    let grp = '';
     for(let k=0; k<per; k++){
       const idx = s*per + k;
       const cls = 'set-dot' + (idx<n?' filled':'') + (idx===n?' current':'') + (idx===state.lastPoppedDot?' pop':'');
-      pair += '<button class="'+cls+'" data-dot="'+idx+'">'+(idx<n ? '✓' : (ex.perSide ? (k?'R':'L') : (s+1)))+'</button>';
+      grp += '<button class="'+cls+'" data-dot="'+idx+'">'+(idx<n ? '✓' : (ex.perSide ? (k?'R':'L') : (s+1)))+'</button>';
     }
-    dots += '<div class="set-pair">'+pair+'</div>';
+    dots += '<div class="set-pair">'+grp+'</div>';
   }
   const nextSide = sideLabel(i, n);
   const setsDone = Math.floor(n/per);
@@ -763,22 +1095,29 @@ function renderLifting(trans){
   const prevW = prev ? pair(prev.weights[i], ex.kg) : null;
   const prevEffort = prev && prev.effort ? prev.effort[i] : null;
   const prevTxt = prevW ? (prevW[0] === prevW[1] ? prevW[0]+' kg' : prevW[0]+'/'+prevW[1]+' kg') : null;
+  const bump = loadStep(i) + ' kg';
   const suggest = !prevTxt ? null
-    : prevEffort === 'easy'  ? 'Last session '+prevTxt+' · felt easy — go up 2 kg'
-    : prevEffort === 'hard'  ? 'Last session '+prevTxt+' · felt hard — hold or drop 2 kg'
+    : prevEffort === 'easy'  ? 'Last session '+prevTxt+' · felt easy — go up '+bump
+    : prevEffort === 'hard'  ? 'Last session '+prevTxt+' · felt hard — hold or drop '+bump
     : prevEffort === 'right' ? 'Last session '+prevTxt+' · felt right'
     : 'Last session '+prevTxt;
+  const stepTxt = loadStep(i) + ' kg steps';
   const loadCtl = k => '<div class="load-ctl">'
     + '<span class="load-side">'+(ex.perSide ? (k?'R':'L') : '')+'</span>'
-    + '<button class="step-btn" data-kg="'+k+'|-2" aria-label="Decrease load">−</button>'
+    + '<button class="step-btn" data-kg="'+k+'|-1" aria-label="Decrease load">−</button>'
     + '<p class="load-val">'+weights[i][k]+'<span> kg</span></p>'
-    + '<button class="step-btn" data-kg="'+k+'|2" aria-label="Increase load">+</button></div>';
+    + '<button class="step-btn" data-kg="'+k+'|1" aria-label="Increase load">+</button></div>';
+
+  const pi = pairIndex(i);
+  const eyebrowText = pi >= 0
+    ? 'Superset '+(pi+1)+' of '+PROG.pairs.length+' · '+(PROG.pairs[pi][0]===i ? 'first lift' : 'second lift')
+    : 'Lift '+(i+1)+' of '+EX.length;
 
   document.getElementById('main').innerHTML = sessionTop()
     + '<div class="stage '+(trans==='fwd'?'slide-fwd':trans==='back'?'slide-back':'')+'">'
     + '<div class="stage-head"><div><p class="stage-eyebrow">'
     + '<button class="step-btn" id="prevLift" '+(i===0?'disabled':'')+' aria-label="Previous lift">‹</button>'
-    + '<span>Lift '+(i+1)+' of '+EX.length+'</span>'
+    + '<span>'+eyebrowText+'</span>'
     + '<button class="step-btn" id="nextLift" '+(i===EX.length-1?'disabled':'')+' aria-label="Next lift">›</button>'
     + '</p><h2 class="stage-name">'+ex.name+'</h2></div>'
     + '<p class="stage-scheme">'+ex.sets+' × '+ex.reps+'</p></div>'
@@ -787,8 +1126,10 @@ function renderLifting(trans){
     + (nextSide ? '<div><p class="mlabel">Next</p><p class="mname">'+nextSide+' side</p></div>' : '')
     + '<a class="text-btn" href="'+ex.video+'" target="_blank" rel="noopener noreferrer">▶ Watch form ↗</a></div></div>'
     + '<div class="load-row"><div><p class="mlabel">Load</p>'
-    + (suggest ? '<p class="load-last">'+suggest+'</p>' : '<p class="load-last">Set the bell you\'re using</p>')
+    + (suggest ? '<p class="load-last">'+suggest+'</p>' : '<p class="load-last">Set the weight you\'re using</p>')
+    + '<p class="load-last" style="color:var(--n500)">'+stepTxt+'</p>'
     + '</div><div class="load-steppers">'+(ex.perSide ? loadCtl(0)+loadCtl(1) : loadCtl(0))+'</div></div>'
+    + partnerBlock(i)
     + cues
     + '<div class="set-row"><div class="set-dots">'+dots+'</div>'
     + '<p class="sets-line">'+setsDone+' of '+ex.sets+' sets'+(nextSide?' · '+nextSide+' next':'')+'</p></div>'
@@ -811,6 +1152,7 @@ function renderLifting(trans){
   const p = document.getElementById('prevLift'), nx = document.getElementById('nextLift');
   if(!p.disabled) p.addEventListener('click', ()=>goLift(i-1,'back'));
   if(!nx.disabled) nx.addEventListener('click', ()=>goLift(i+1,'fwd'));
+  document.querySelectorAll('[data-jump]').forEach(el => el.addEventListener('click', ()=> goLift(+el.dataset.jump,'fwd')));
   document.querySelectorAll('[data-dot]').forEach(el => el.addEventListener('click', ()=>{
     const idx = +el.dataset.dot;
     setLogged(i, idx + 1 === state.logged[i] ? idx : idx + 1);
@@ -823,16 +1165,20 @@ function renderLifting(trans){
 
 function renderResting(){
   const left = restLeft(), ex = EX[state.ex];
+  const kindText = {
+    side:'Switch sides', lift:'Next lift', set:'Between sets',
+    within:'Switch stations', round:'Next round', pair:'Next superset'
+  }[state.restKind] || 'Rest';
   document.getElementById('main').innerHTML = sessionTop()
     + '<div class="rest"><div class="rest-banner'+(left<=10?' urgent':'')+'" id="restBannerEl">'
-    + '<p class="rest-eyebrow"><span>Rest</span><span>'+(state.restKind==='side'?'Switch sides':state.restKind==='lift'?'Next lift':'Between sets')+'</span></p>'
+    + '<p class="rest-eyebrow"><span>Rest</span><span>'+kindText+'</span></p>'
     + '<p class="rest-clock" id="restClockVal">'+fmt(left)+'</p>'
     + '<div class="rest-track"><div class="rest-fill" id="restFillVal" style="width:'+(state.restTotal?(1-left/state.restTotal)*100:0).toFixed(1)+'%"></div></div></div>'
     + '<div class="rest-next"><div><p class="mlabel">Up next</p><p class="rest-next-name">'+state.restNext+'</p></div>'
     + '<p class="sess-clock">'+kgText(state.ex)+'</p></div>'
     + '<div class="rest-preview"><div class="rest-preview-art">'+svgWrap(art(ex.pose,true))+'</div>'
     + '<p class="rest-cue">'+ex.cues[0]+'</p></div>'
-    + '<p class="footnote">Breathe through the nose. Set the bell down — don\'t hold it through the rest.</p></div>';
+    + '<p class="footnote">'+PROG.restCue+'</p></div>';
   document.getElementById('exitBtn').addEventListener('click', exitToOverview);
   setCta('<p class="cta-hint">Resting — '+fmt(left)+' left</p>'
     + '<div style="display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px">'
@@ -862,16 +1208,16 @@ function renderFinished(){
   }).join('');
 
   document.getElementById('main').innerHTML =
-    '<div class="finished"><div class="fin-banner"><p class="fin-eyebrow">Session '+history.length+' complete</p>'
+    '<div class="finished"><div class="fin-banner"><p class="fin-eyebrow">'+PROG.name+' · session '+history.length+' complete</p>'
     + '<h2 class="fin-title">Week<br>logged.</h2>'
-    + '<p class="fin-sub">'+(delta===null ? 'First one on the board.' : delta > 0 ? '+'+delta+' sets on last week.' : delta === 0 ? 'Matched last week, set for set.' : Math.abs(delta)+' sets down on last week — still logged.')+'</p></div>'
+    + '<p class="fin-sub">'+(delta===null ? 'First one on the board.' : delta > 0 ? '+'+delta+' sets on last time.' : delta === 0 ? 'Matched last time, set for set.' : Math.abs(delta)+' sets down on last time — still logged.')+'</p></div>'
     + '<div class="fin-stats">'
     + '<div class="fin-stat"><p class="fin-stat-label">Total time</p><p class="fin-stat-val">'+fmt(elapsed())+'</p></div>'
     + '<div class="fin-stat"><p class="fin-stat-label">Lifts</p><p class="fin-stat-val">'+done+'<small>'+(skipped?' · '+skipped+' skipped':'')+'</small></p></div>'
     + '<div class="fin-stat"><p class="fin-stat-label">Tonnage</p><p class="fin-stat-val">'+volume+'<small> kg·set</small></p></div>'
     + '</div><p class="section-label">The log</p><table class="fin-log">'+log+'</table>'
     + (rated.length ? '<p class="section-label">How did it feel?</p>' + rated : '')
-    + '<p class="fin-copy">Next one in seven days — same order. Whatever you marked <em>easy</em> comes back with a "go up 2 kg" note.</p>'
+    + '<p class="fin-copy">Next one in seven days — same order. Whatever you marked <em>easy</em> comes back with a "go up" note.</p>'
     + '<button class="btn btn-outline" id="restartBtn" style="border-color:var(--text)"><span>Back to overview</span><span>→</span></button></div>';
   document.getElementById('restartBtn').addEventListener('click', resetAll);
   document.querySelectorAll('[data-rate]').forEach(el => el.addEventListener('click', ()=>{
@@ -891,7 +1237,8 @@ function renderHistory(){
   }).join('');
   const best = history.reduce((a,h)=> Math.max(a, h.tonnage||0), 0);
   document.getElementById('main').innerHTML =
-    '<div class="sess-top"><button class="exit-link" id="histBackBtn">← Overview</button></div>'
+    '<div class="sess-top"><button class="exit-link" id="histBackBtn">← Overview</button>'
+    + '<p class="sess-label">'+PROG.name+'</p></div>'
     + '<div class="stat-row" style="border-top:none">'
     + '<div class="stat"><p class="stat-label">Sessions</p><p class="stat-val">'+history.length+'</p></div>'
     + '<div class="stat"><p class="stat-label">Best tonnage</p><p class="stat-val">'+best+'<small> kg·set</small></p></div>'
@@ -900,10 +1247,10 @@ function renderHistory(){
     + '<p class="section-label">Tonnage, last '+series.length+' sessions</p>'
     + '<div class="spark">'+bars+'</div>'
     + '<p class="section-label">The record</p>' + rows
-    + '<p class="footnote">Tonnage counts each logged set at the bell you used — the honest measure of whether the week actually got heavier.</p>'
+    + '<p class="footnote">Each program keeps its own record. Tonnage counts every logged set at the weight you used — the honest measure of whether the week actually got heavier.</p>'
     + '<div class="code-box"><p class="mlabel">Your log code</p>'
     + '<p class="code-val" id="codeVal">'+myCode()+'</p>'
-    + '<p class="code-copy">Every session is backed up under this code. Write it down — enter it on another device, or after clearing Safari, to get this history back.</p>'
+    + '<p class="code-copy">Both programs are backed up under this code. Write it down — enter it on another device, or after clearing Safari, to get this history back.</p>'
     + '<div class="code-actions"><button class="text-btn" id="codeCopyBtn">Copy code</button>'
     + '<button class="text-btn" id="codeUseBtn">Use another code</button></div>'
     + '<div class="code-form" id="codeForm" hidden>'
@@ -941,7 +1288,8 @@ function renderHowTo(){
     + '<div><p class="video-row-name">'+e.name+'</p><p class="video-row-sub">Tutorial on YouTube ↗</p></div>'
     + '<div class="video-row-play">▶</div></a>').join('');
   document.getElementById('main').innerHTML =
-    '<div class="sess-top"><button class="exit-link" id="howtoBackBtn">← Overview</button></div>'
+    '<div class="sess-top"><button class="exit-link" id="howtoBackBtn">← Overview</button>'
+    + '<p class="sess-label">'+PROG.name+'</p></div>'
     + '<p class="section-label" style="margin-top:20px">Video guide</p>' + rows + '<hr class="hr">'
     + '<p class="footnote">One tutorial per movement — links open on YouTube. Form matters more than load on all six.</p>';
   document.getElementById('howtoBackBtn').addEventListener('click', ()=>{ state.view='overview'; render('back'); });
@@ -960,17 +1308,13 @@ function render(trans){
 
 /* ---------- BOOT ---------- */
 document.getElementById('dateStamp').textContent = new Date().toLocaleDateString(undefined,{weekday:'long',month:'short',day:'numeric'});
-if(saved){
-  state.ex = saved.ex||0; state.logged = saved.logged; state.status = saved.status || EX.map(()=>'pending');
-  state.accum = saved.accum||0;
-  if(saved.restEndsAt && saved.restEndsAt > Date.now()){
-    state.restEndsAt = saved.restEndsAt; state.restTotal = saved.restTotal; state.restNext = saved.restNext; state.restKind = saved.restKind;
-  }
-}
+paintHeader();
+applySaved(restoreSession(K));
 render();
 window.addEventListener('pagehide', persist);
 window.addEventListener('beforeunload', persist);
 document.addEventListener('pointerdown', primeAudio, {once:true});
+
 /* ---------- UPDATE PROMPT ---------- */
 function showUpdateToast(worker){
   if(document.getElementById('updateToast')) return;

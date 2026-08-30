@@ -1,4 +1,4 @@
-const CACHE = 'foundry-v5';
+const CACHE = 'foundry-v8';
 const CORE = ['./', 'index.html', 'sync.js', 'firebase-config.js', 'manifest.webmanifest', 'icon-192.png', 'icon-512.png', 'icon-180.png'];
 
 self.addEventListener('install', e => {
